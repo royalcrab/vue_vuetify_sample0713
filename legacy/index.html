@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vuetify 3 Vite Sample 0713</title>
+
+</head>
+<style>
+input.calc {
+    font-family:monospace;
+    font-size: 500%;
+    text-align: right;
+}
+button {
+    font-size: 400%;
+    width: 3em;
+    height:2em;
+
+}
+button.clear {
+    width: 9em;
+}
+</style>
+<body>
+
+    <div>
+        <input id="display" class="calc" type="text" maxlength="14" size="14" value="0"> <br/>
+
+        <button id="num_7">7</button>
+        <button id="num_8">8</button>
+        <button id="num_9">9</button> <br/>
+        <button id="num_4">4</button>
+        <button id="num_5">5</button>
+        <button id="num_6">6</button> <br/>
+        <button id="num_1">1</button>
+        <button id="num_2">2</button>
+        <button id="num_3">3</button> <br/>
+        <button id="num_0">0</button> 
+        <button id="sum"> + </button>
+        <button id="result"> = </button> <br/>
+
+        <button class="clear" id="clear"> CLEAR </button> <br/>
+        
+    </div>
+</body>
+<script>
+
+let sumFlag = false;
+let resetFlag = false;
+let memory = 0;
+        
+const displayText = document.getElementById('display');
+const numberButtons = [];
+const sumButton = document.getElementById('sum');
+const resultButton = document.getElementById('result');
+const clearButton = document.getElementById('clear');
+
+const init = function(){
+    for ( let i = 0; i < 10; i++ ){
+        numberButtons[i] = document.getElementById('num_' + i);
+        numberButtons[i].addEventListener('click', () => {
+            let num = displayText.value;
+            if ( num == "0" || resetFlag == true ){
+                displayText.value = i;
+            }else{
+                displayText.value = num + i;
+            }
+            resetFlag = false;
+        });
+    }
+    resultButton.addEventListener('click', result );
+    sumButton.onclick = sum;
+    
+    clearButton.addEventListener('click', () => {
+        sumFlag = false;
+        displayText.value = 0;
+    });
+}
+
+init();
+
+function sum()
+{
+    console.log( "disp", displayText.value );
+    console.log( "memory", memory );
+    if ( sumFlag == true ){
+        let num = displayText.value;
+        displayText.value = parseInt( num ) + parseInt(memory);
+        console.log( "result", displayText.value );
+    }
+
+    memory = displayText.value;
+    sumFlag = true;
+    resetFlag = true;
+}
+
+function result()
+{
+    if ( sumFlag == true ){
+        let num = displayText.value;
+        displayText.value = parseInt( num ) + parseInt(memory);
+        console.log( "result", displayText.value );
+    }
+    sumFlag = false;
+    resetFlag = true;
+    memory = 0;
+}
+
+</script>
+
+</html>
