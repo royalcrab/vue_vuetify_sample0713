@@ -3,6 +3,8 @@
 /legacy/index.html をブラウザで開いたときに動作する、加算のみが可能な
 計算機のアプリケーションを、src/App.vue (もしくは src/views/HomeView.vue) に移植してください。
 
+必要があれば、他のファイルを書き換えてもOKです。
+
 ```
 $ yarn dev
 ```
